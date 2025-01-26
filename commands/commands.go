@@ -8,6 +8,11 @@ type cliCommand struct {
 
 func GetCommands() map[string]cliCommand {
 	return map[string]cliCommand{
+		"help": {
+			Name:        "help",
+			Description: "Displays a help message",
+			Callback:    commandHelp,
+		},
 		"exit": {
 			Name:        "exit",
 			Description: "Exit the Pokedex",
