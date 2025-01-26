@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/snowkittyselene/commands"
 )
 
 func cleanInput(text string) []string {
@@ -15,15 +17,21 @@ func cleanInput(text string) []string {
 
 func startRepl() {
 	reader := bufio.NewScanner(os.Stdin)
-
+	commands := commands.GetCommands()
 	for {
 		fmt.Print("Pokedex > ")
 		reader.Scan()
-		res := cleanInput(reader.Text())
-		if len(res) == 0 {
+		input := cleanInput(reader.Text())
+		// skip empty
+		if len(input) == 0 {
 			continue
 		}
-		cmd := res[0]
-		fmt.Printf("Your command was: %s\n", cmd)
+		cmd := input[0]
+		res, ok := commands[cmd]
+		if !ok {
+			fmt.Println("Unknown command")
+			continue
+		}
+		res.Callback()
 	}
 }
