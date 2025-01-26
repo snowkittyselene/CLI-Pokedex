@@ -32,6 +32,9 @@ func startRepl() {
 			fmt.Println("Unknown command")
 			continue
 		}
-		res.Callback()
+		err := res.Callback()
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+		}
 	}
 }
