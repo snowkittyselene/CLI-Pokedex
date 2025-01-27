@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-type PokeApiResponse struct {
+type APILocationArea struct {
 	Count    int      `json:"count"`
 	Next     string   `json:"next"`
 	Previous string   `json:"previous"`
@@ -17,10 +17,10 @@ type Result struct {
 	URL  string `json:"url"`
 }
 
-func CallAPI(url string) (PokeApiResponse, error) {
+func CallAPI(url string) (APILocationArea, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return PokeApiResponse{}, err
+		return APILocationArea{}, err
 	}
 
 	req.Header.Add("Content-Type", "application/json")
@@ -28,13 +28,13 @@ func CallAPI(url string) (PokeApiResponse, error) {
 	client := &http.Client{}
 	res, err := client.Do(req)
 	if err != nil {
-		return PokeApiResponse{}, err
+		return APILocationArea{}, err
 	}
 	defer res.Body.Close()
 
-	var apiResponse PokeApiResponse
+	var apiResponse APILocationArea
 	if err := json.NewDecoder(res.Body).Decode(&apiResponse); err != nil {
-		return PokeApiResponse{}, err
+		return APILocationArea{}, err
 	}
 	return apiResponse, nil
 }
