@@ -33,7 +33,7 @@ func startRepl(config *commands.Config) {
 			fmt.Println("Unknown command")
 			continue
 		}
-		err := res.Callback(config)
+		err := res.Callback(config, cmd[1:])
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 		}
