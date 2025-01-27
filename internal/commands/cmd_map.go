@@ -3,7 +3,7 @@ package commands
 import (
 	"fmt"
 
-	pokeapi "github.com/snowkittyselene/poke_api"
+	pokeapi "github.com/snowkittyselene/pokeapi"
 )
 
 const locationArea string = baseApiUrl + "/location-area/"
