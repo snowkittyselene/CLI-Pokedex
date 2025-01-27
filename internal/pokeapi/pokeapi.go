@@ -2,6 +2,7 @@ package pokeapi
 
 import (
 	"encoding/json"
+	"io"
 	"net/http"
 )
 
@@ -32,8 +33,13 @@ func callLocationArea(url string) (APILocationArea, error) {
 	}
 	defer res.Body.Close()
 
+	data, err := io.ReadAll(res.Body)
+	if err != nil {
+		return APILocationArea{}, nil
+	}
+
 	var apiResponse APILocationArea
-	if err := json.NewDecoder(res.Body).Decode(&apiResponse); err != nil {
+	if err := json.Unmarshal(data, &apiResponse); err != nil {
 		return APILocationArea{}, err
 	}
 	return apiResponse, nil
