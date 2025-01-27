@@ -18,6 +18,9 @@ func commandMap(c *Config) error {
 }
 
 func commandMapBack(c *Config) error {
+	if c.Previous == nil {
+		fmt.Println("You're on the first page")
+	}
 	res, err := c.Client.CallLocationArea(c.Previous)
 	if err != nil {
 		return err
