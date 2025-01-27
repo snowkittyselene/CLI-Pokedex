@@ -25,6 +25,15 @@ func (client *Client) CallLocationArea(url *string) (APILocationArea, error) {
 	if url != nil {
 		pageUrl = *url
 	}
+
+	if val, ok := client.cache.Get(pageUrl); ok {
+		res := APILocationArea{}
+		if err := json.Unmarshal(val, &res); err != nil {
+			return APILocationArea{}, err
+		}
+		return res, nil
+	}
+
 	req, err := http.NewRequest("GET", pageUrl, nil)
 	if err != nil {
 		return APILocationArea{}, err
