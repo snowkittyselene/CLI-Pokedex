@@ -18,7 +18,7 @@ type Result struct {
 	URL  string `json:"url"`
 }
 
-const locationAreaUrl = baseApiUrl + "/location-area/"
+const locationAreaUrl = baseApiUrl + "location-area/"
 
 func (client *Client) CallLocationArea(url *string) (APILocationArea, error) {
 	pageUrl := locationAreaUrl
