@@ -15,11 +15,7 @@ func cleanInput(text string) []string {
 	return res
 }
 
-func startRepl() {
-	config := commands.Config{
-		Next:     "",
-		Previous: "",
-	}
+func startRepl(config *commands.Config) {
 
 	reader := bufio.NewScanner(os.Stdin)
 	commands := commands.GetCommands()
@@ -37,7 +33,7 @@ func startRepl() {
 			fmt.Println("Unknown command")
 			continue
 		}
-		err := res.Callback(&config)
+		err := res.Callback(config)
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 		}

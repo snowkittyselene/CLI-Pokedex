@@ -2,18 +2,10 @@ package commands
 
 import (
 	"fmt"
-
-	"github.com/snowkittyselene/pokeapi"
 )
 
-const locationArea string = baseApiUrl + "/location-area/"
-
 func commandMap(c *Config) error {
-	url := locationArea
-	if c.Next != "" {
-		url = c.Next
-	}
-	res, err := pokeapi.CallLocationArea(url)
+	res, err := c.Client.CallLocationArea(c.Next)
 	if err != nil {
 		return err
 	}
@@ -26,10 +18,7 @@ func commandMap(c *Config) error {
 }
 
 func commandMapBack(c *Config) error {
-	if c.Previous == "" {
-		return fmt.Errorf("no previous map page")
-	}
-	res, err := pokeapi.CallLocationArea(c.Previous)
+	res, err := c.Client.CallLocationArea(c.Previous)
 	if err != nil {
 		return err
 	}

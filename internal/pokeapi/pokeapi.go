@@ -8,8 +8,8 @@ import (
 
 type APILocationArea struct {
 	Count    int      `json:"count"`
-	Next     string   `json:"next"`
-	Previous string   `json:"previous"`
+	Next     *string  `json:"next"`
+	Previous *string  `json:"previous"`
 	Results  []Result `json:"results"`
 }
 
@@ -18,16 +18,21 @@ type Result struct {
 	URL  string `json:"url"`
 }
 
-func CallLocationArea(url string) (APILocationArea, error) {
-	req, err := http.NewRequest("GET", url, nil)
+const locationAreaUrl = baseApiUrl + "/location-area/"
+
+func (client *Client) CallLocationArea(url *string) (APILocationArea, error) {
+	pageUrl := locationAreaUrl
+	if url != nil {
+		pageUrl = *url
+	}
+	req, err := http.NewRequest("GET", pageUrl, nil)
 	if err != nil {
 		return APILocationArea{}, err
 	}
 
 	req.Header.Add("Content-Type", "application/json")
 
-	client := &http.Client{}
-	res, err := client.Do(req)
+	res, err := client.httpClient.Do(req)
 	if err != nil {
 		return APILocationArea{}, err
 	}

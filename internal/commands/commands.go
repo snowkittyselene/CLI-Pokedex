@@ -1,6 +1,8 @@
 package commands
 
-const baseApiUrl string = "https://pokeapi.co/api/v2/"
+import (
+	"github.com/snowkittyselene/pokeapi"
+)
 
 type cliCommand struct {
 	Name        string
@@ -9,8 +11,9 @@ type cliCommand struct {
 }
 
 type Config struct {
-	Next     string
-	Previous string
+	Client   pokeapi.Client
+	Next     *string
+	Previous *string
 }
 
 func GetCommands() map[string]cliCommand {
