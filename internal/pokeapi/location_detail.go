@@ -1,11 +1,5 @@
 package pokeapi
 
-import (
-	"encoding/json"
-	"io"
-	"net/http"
-)
-
 type LocationDetails struct {
 	EncounterMethodRates []struct {
 		EncounterMethod struct {
@@ -62,36 +56,9 @@ type LocationDetails struct {
 func (client *Client) CallLocationDetails(location string) (LocationDetails, error) {
 	pageUrl := locationAreaUrl + location
 
-	if val, ok := client.cache.Get(pageUrl); ok {
-		res := LocationDetails{}
-		if err := json.Unmarshal(val, &res); err != nil {
-			return LocationDetails{}, err
-		}
-		return res, nil
-	}
-
-	req, err := http.NewRequest("GET", pageUrl, nil)
+	data, err := CallAPI(client, pageUrl, LocationDetails{})
 	if err != nil {
 		return LocationDetails{}, err
 	}
-
-	req.Header.Add("Content-Type", "application/json")
-
-	res, err := client.httpClient.Do(req)
-	if err != nil {
-		return LocationDetails{}, err
-	}
-	defer res.Body.Close()
-
-	data, err := io.ReadAll(res.Body)
-	if err != nil {
-		return LocationDetails{}, err
-	}
-	client.cache.Add(pageUrl, data)
-
-	var apiResponse LocationDetails
-	if err := json.Unmarshal(data, &apiResponse); err != nil {
-		return LocationDetails{}, err
-	}
-	return apiResponse, nil
+	return data, nil
 }
