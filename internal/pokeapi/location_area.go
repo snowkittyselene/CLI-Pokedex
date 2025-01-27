@@ -47,7 +47,7 @@ func (client *Client) CallLocationArea(url *string) (LocationArea, error) {
 
 	data, err := io.ReadAll(res.Body)
 	if err != nil {
-		return LocationArea{}, nil
+		return LocationArea{}, err
 	}
 	client.cache.Add(pageUrl, data)
 
