@@ -68,8 +68,8 @@ type PokemonEncounter struct {
 	VersionDetails []VersionDetails `json:"version_details"`
 }
 
-func (client *Client) CallLocationDetails(url string) (LocationDetails, error) {
-	pageUrl := locationAreaUrl + url
+func (client *Client) CallLocationDetails(location string) (LocationDetails, error) {
+	pageUrl := locationAreaUrl + location
 
 	if val, ok := client.cache.Get(pageUrl); ok {
 		res := LocationDetails{}
