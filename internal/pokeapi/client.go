@@ -29,34 +29,34 @@ func NewClient(timeout, interval time.Duration) Client {
 	}
 }
 
-func CallAPI[T APIResponse](client *Client, url string, typeEmpty T) (T, error) {
-	response := typeEmpty
+func CallAPI[T APIResponse](client *Client, url string) (T, error) {
+	var response, empty T
 	if val, ok := client.cache.Get(url); ok {
 		if err := json.Unmarshal(val, &response); err != nil {
-			return typeEmpty, err
+			return empty, err
 		}
 		return response, nil
 	}
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return typeEmpty, err
+		return empty, err
 	}
 
 	res, err := client.httpClient.Do(req)
 	if err != nil {
-		return typeEmpty, err
+		return empty, err
 	}
 	defer res.Body.Close()
 
 	data, err := io.ReadAll(res.Body)
 	if err != nil {
-		return typeEmpty, err
+		return empty, err
 	}
 	client.cache.Add(url, data)
 
 	if err := json.Unmarshal(data, &response); err != nil {
-		return typeEmpty, err
+		return empty, err
 	}
 	return response, nil
 }

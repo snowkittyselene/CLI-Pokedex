@@ -56,7 +56,7 @@ type LocationDetails struct {
 func (client *Client) CallLocationDetails(location string) (LocationDetails, error) {
 	pageUrl := locationAreaUrl + location
 
-	data, err := CallAPI(client, pageUrl, LocationDetails{})
+	data, err := CallAPI[LocationDetails](client, pageUrl)
 	if err != nil {
 		return LocationDetails{}, err
 	}

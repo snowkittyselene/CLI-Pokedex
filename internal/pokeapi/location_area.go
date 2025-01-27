@@ -18,7 +18,7 @@ func (client *Client) CallLocationArea(url *string) (LocationArea, error) {
 		pageUrl = *url
 	}
 
-	data, err := CallAPI(client, pageUrl, LocationArea{})
+	data, err := CallAPI[LocationArea](client, pageUrl)
 	if err != nil {
 		return LocationArea{}, err
 	}

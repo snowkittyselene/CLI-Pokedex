@@ -95,7 +95,7 @@ type PokemonInfo struct {
 
 func (client *Client) CallPokemonInfo(name string) (PokemonInfo, error) {
 	pageUrl := pokemonInfoUrl + name
-	data, err := CallAPI(client, pageUrl, PokemonInfo{})
+	data, err := CallAPI[PokemonInfo](client, pageUrl)
 	if err != nil {
 		return PokemonInfo{}, err
 	}
