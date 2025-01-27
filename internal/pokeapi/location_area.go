@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type APILocationArea struct {
+type LocationArea struct {
 	Count    int     `json:"count"`
 	Next     *string `json:"next"`
 	Previous *string `json:"previous"`
@@ -18,42 +18,42 @@ type APILocationArea struct {
 
 const locationAreaUrl = baseApiUrl + "location-area/"
 
-func (client *Client) CallLocationArea(url *string) (APILocationArea, error) {
+func (client *Client) CallLocationArea(url *string) (LocationArea, error) {
 	pageUrl := locationAreaUrl
 	if url != nil {
 		pageUrl = *url
 	}
 
 	if val, ok := client.cache.Get(pageUrl); ok {
-		res := APILocationArea{}
+		res := LocationArea{}
 		if err := json.Unmarshal(val, &res); err != nil {
-			return APILocationArea{}, err
+			return LocationArea{}, err
 		}
 		return res, nil
 	}
 
 	req, err := http.NewRequest("GET", pageUrl, nil)
 	if err != nil {
-		return APILocationArea{}, err
+		return LocationArea{}, err
 	}
 
 	req.Header.Add("Content-Type", "application/json")
 
 	res, err := client.httpClient.Do(req)
 	if err != nil {
-		return APILocationArea{}, err
+		return LocationArea{}, err
 	}
 	defer res.Body.Close()
 
 	data, err := io.ReadAll(res.Body)
 	if err != nil {
-		return APILocationArea{}, nil
+		return LocationArea{}, nil
 	}
 	client.cache.Add(pageUrl, data)
 
-	var apiResponse APILocationArea
+	var apiResponse LocationArea
 	if err := json.Unmarshal(data, &apiResponse); err != nil {
-		return APILocationArea{}, err
+		return LocationArea{}, err
 	}
 	return apiResponse, nil
 }
