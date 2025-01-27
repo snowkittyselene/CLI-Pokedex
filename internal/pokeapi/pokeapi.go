@@ -18,7 +18,7 @@ type Result struct {
 	URL  string `json:"url"`
 }
 
-func callLocationArea(url string) (APILocationArea, error) {
+func CallLocationArea(url string) (APILocationArea, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return APILocationArea{}, err
