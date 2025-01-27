@@ -51,6 +51,7 @@ func (client *Client) CallLocationArea(url *string) (APILocationArea, error) {
 	if err != nil {
 		return APILocationArea{}, nil
 	}
+	client.cache.Add(pageUrl, data)
 
 	var apiResponse APILocationArea
 	if err := json.Unmarshal(data, &apiResponse); err != nil {
