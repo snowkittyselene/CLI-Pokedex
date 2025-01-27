@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func commandMap(c *Config) error {
+func commandMap(c *Config, args ...string) error {
 	res, err := c.Client.CallLocationArea(c.Next)
 	if err != nil {
 		return err
@@ -17,7 +17,7 @@ func commandMap(c *Config) error {
 	return nil
 }
 
-func commandMapBack(c *Config) error {
+func commandMapBack(c *Config, args ...string) error {
 	if c.Previous == nil {
 		return fmt.Errorf("you're on the first page")
 	}

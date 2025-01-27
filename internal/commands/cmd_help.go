@@ -5,7 +5,7 @@ import (
 	"slices"
 )
 
-func commandHelp(c *Config) error {
+func commandHelp(c *Config, args ...string) error {
 	commands := GetCommands()
 	fmt.Println("Welcome to the Pokedex!\nUsage:")
 	cmdNames := []string{}
