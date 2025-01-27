@@ -7,15 +7,13 @@ import (
 )
 
 type APILocationArea struct {
-	Count    int      `json:"count"`
-	Next     *string  `json:"next"`
-	Previous *string  `json:"previous"`
-	Results  []Result `json:"results"`
-}
-
-type Result struct {
-	Name string `json:"name"`
-	URL  string `json:"url"`
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	} `json:"results"`
 }
 
 const locationAreaUrl = baseApiUrl + "location-area/"
