@@ -18,9 +18,10 @@ func commandCatch(c *Config, args ...string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Throwing a Pokeball at  %s...\n", pokemonInfo.Name)
+	fmt.Printf("Throwing a Pokeball at %s...\n", pokemonInfo.Name)
 	if rand.Intn(255) <= speciesInfo.CaptureRate {
 		fmt.Printf("%s was caught!\n", pokemonInfo.Name)
+		c.Pokedex[pokemon] = pokemonInfo
 	} else {
 		fmt.Printf("%s escaped!\n", pokemonInfo.Name)
 	}
