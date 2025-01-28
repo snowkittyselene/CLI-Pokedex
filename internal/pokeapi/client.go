@@ -17,7 +17,7 @@ type Client struct {
 }
 
 type APIResponse interface {
-	LocationArea | LocationDetails | PokemonInfo
+	LocationArea | LocationDetails | PokemonInfo | PokemonSpeciesInfo
 }
 
 func NewClient(timeout, interval time.Duration) Client {
