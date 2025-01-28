@@ -26,12 +26,12 @@ func GetCommands() map[string]cliCommand {
 		},
 		"catch": {
 			Name:        "catch",
-			Description: "Attempt to catch a pokemon",
+			Description: "Attempt to catch a Pokemon",
 			Callback:    commandCatch,
 		},
 		"explore": {
 			Name:        "explore",
-			Description: "Shows the Pokemon encoutnered in an area",
+			Description: "Shows the Pokemon encountered in an area",
 			Callback:    commandExplore,
 		},
 		"map": {
