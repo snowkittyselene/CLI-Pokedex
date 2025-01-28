@@ -19,6 +19,11 @@ type Config struct {
 
 func GetCommands() map[string]cliCommand {
 	return map[string]cliCommand{
+		"pokedex": {
+			Name:        "pokedex",
+			Description: "Display all caught Pokemon",
+			Callback:    commandPokedex,
+		},
 		"inspect": {
 			Name:        "inspect",
 			Description: "Inspect the stats of a caught Pokemon",
