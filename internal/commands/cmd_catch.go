@@ -1,6 +1,9 @@
 package commands
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 func commandCatch(c *Config, args ...string) error {
 	if len(args) == 0 {
@@ -11,6 +14,15 @@ func commandCatch(c *Config, args ...string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("You searched for: %s\n", pokemonInfo.Name)
+	speciesInfo, err := c.Client.CallPokemonSpeciesInfo(pokemon)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("Throwing a Pokeball at  %s...\n", pokemonInfo.Name)
+	if rand.Intn(255) <= speciesInfo.CaptureRate {
+		fmt.Printf("%s was caught!\n", pokemonInfo.Name)
+	} else {
+		fmt.Printf("%s escaped!\n", pokemonInfo.Name)
+	}
 	return nil
 }
